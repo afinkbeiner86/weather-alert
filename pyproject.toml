@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "weather-alert"
+version = "0.1.0"
+description = "Alerting system capable of sending push notifications on specific weather conditions."
+readme = "README.md"
+requires-python = ">=3.10"
+
+# Runtime dependencies
+dependencies = [
+    "dotenv>=0.9.9",
+    "requests>=2.32.3",
+    "schedule>=1.2.0",
+    "tenacity>=8.2.2",
+]
+
+# CLI entry points
+[project.scripts]
+weather-alert = "weather_alert.main:main"
+
+[dependency-groups]
+dev = ["pytest>=8.3.5"]
