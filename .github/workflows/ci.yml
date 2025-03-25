@@ -22,24 +22,24 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install hatchling pytest
-        pip install -e .[dev]
-      shell: bash
 
+    - name: Install dependencies and setup environment
+      run: |
+        pip install uv
+        uv venv
+        uv sync --dev
+      shell: bash
+    
     - name: Run Ruff
       run: |
-        ruff check .
-        ruff format --check .
+        uv run ruff check .
+        uv run ruff format --check .
       shell: bash
     
     - name: Run pytest with coverage
       run: |
-        pip install pytest-cov
-        pytest --cov=weather_alert tests/ --cov-report=xml
+        uv pip install pytest-cov
+        uv run pytest --cov=weather_alert tests/ --cov-report=xml
       shell: bash
     
     # - name: Upload coverage
